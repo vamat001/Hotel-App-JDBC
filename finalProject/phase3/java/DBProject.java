@@ -560,7 +560,8 @@ public class DBProject {
 			System.out.println("Maintenance Company Name: ");
 			String input = scan.nextLine();
 			System.out.println("Maintenance Company Name: " + input);
-			query += input + ")";
+			String new_input = "\'" + input + "\'";
+			query += new_input + ")";
 			int rowCount = esql.runQuery(query);
 			System.out.println("total row(s): " + rowCount);
 		} catch (Exception e) {
