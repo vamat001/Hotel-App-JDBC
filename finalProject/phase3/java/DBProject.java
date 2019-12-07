@@ -98,7 +98,7 @@ public class DBProject {
 		return rs;
 	}// end executeQuery
 
-	public ResultSet runQuery(String query) throws SQLException {
+	public int runQuery(String query) throws SQLException {
 		// creates a statement object
 		Statement stmt = this._connection.createStatement();
 
