@@ -294,6 +294,25 @@ public class DBProject {
 		} while (true);
 		return input;
 	}// end readChoice
+	
+	public static boolean isValidString(String str) {
+		if(str.length() > 0) {
+		return true;
+		} else {
+		return false;
+		} 
+	} 
+
+	public static boolean isValidInt(String str) {
+		try {
+		for(int i = 0; i < str.length() - 1; i++) {
+			int num = Integer.parseInt(str.substring(i, i+1));
+		}
+		return true;
+		} catch(NumberFormatException e) {
+		return false;
+		}
+	}
 
 	public static void addCustomer(DBProject esql) {
 		// Given customer details add the customer in the DB
@@ -316,12 +335,17 @@ public class DBProject {
 			String dob = scan.nextLine();
 			System.out.println("Gender(Male, Female, or Other): ");
 			String gender = scan.nextLine();
+			if(isValidString(first_name) && isValidString(last_name) && isValidString(address) && isValidInt(phNo)) {
+
 			System.out.println("Your Information:\nCustomerID: " + id + "\nname: " + first_name + " " + last_name
 					+ "\naddress: " + address + "\nphone number: " + phNo + "\nDOB: " + dob + "\nGender: " + gender);
 			String sql = "insert into customer(customerID, fName, lName, Address, phNo, DOB, gender) values(" + id + ","
 					+ "\'" + first_name + "\'" + "," + "\'" + last_name + "\'" + "," + "\'" + address + "\'" + ","
 					+ "\'" + phNo + "\'" + "," + "\'" + dob + "\'" + "," + "\'" + gender + "\'" + ")";
 			esql.executeUpdate(sql);
+			} else {
+				return;
+			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -339,10 +363,14 @@ public class DBProject {
 			// scan.nextLine();
 			System.out.println("Room Type: ");
 			String type = scan.nextLine();
+			if(isValidInt(hotelID) && isValidInt(roomNo) && isValidString(type)){
 			String sql = "insert into room(hotelID, roomNo, roomType) values(" + "\'" + hotelID + "\'" + "," + "\'"
 					+ roomNo + "\'" + "," + "\'" + type + "\'" + ")";
 			System.out.println("Add Room:\nHotel ID: " + hotelID + "\nroomNo: " + roomNo + "\nRoom Type: " + type);
 			esql.executeUpdate(sql);
+			} else {
+			return;
+			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -370,11 +398,15 @@ public class DBProject {
 			} else {
 				certified = "FALSE";
 			}
+			if(isValidString(name) && isValidString(address)){
 			String sql = "insert into maintenancecompany(cmpID, name, address, isCertified) values(" + "\'" + id + "\'"
 					+ "," + "\'" + name + "\'" + "," + "\'" + address + "\'" + "," + "\'" + certified + "\'" + ")";
 			System.out.println("Add Maintenance Company:\nCompany ID: " + id + "\nCompany Name: " + name + "\nAddress: "
 					+ address + "\nCertified: " + certified);
 			esql.executeUpdate(sql);
+			} else {
+			return;
+			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -403,6 +435,7 @@ public class DBProject {
 			String description = scan.nextLine();
 			System.out.println("Repair Type: ");
 			String type = scan.nextLine();
+			if(isValidInt(hotelID) && isValidInt(roomNo) && isValidInt(cmpID) && isValidString(description) && isValidString(type)){
 			System.out.println("Repair ID: " + id + "\nHotel ID: " + hotelID + "\nRoomNo: " + roomNo
 					+ "\nMaintenance Company ID: " + cmpID + "\nRepair Date: " + date + "\nDescription: " + description
 					+ "\nRepair Type: " + type);
@@ -411,6 +444,9 @@ public class DBProject {
 					+ "\'" + "," + "\'" + date + "\'" + "," + "\'" + description + "\'" + "," + "\'" + type + "\'"
 					+ ")";
 			esql.executeUpdate(sql);
+			} else {
+			return;
+			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -440,12 +476,16 @@ public class DBProject {
 			String numPpl = scan.nextLine();
 			System.out.println("Price: ");
 			String price = scan.nextLine();
+			if(isValidInt(cID) && isValidInt(hotelID) && isValidInt(roomNo) && isValidInt(numPpl)) {
 			System.out.println("Booking ID: " + id + "\nCustomer ID: " + cID + "\nHotel ID: " + hotelID + "\nRoomNo: "
 					+ roomNo + "\nBooking Date: " + date + "\nNumber of People: " + numPpl + "\nPrice: " + price);
 			String sql = "insert into booking(bid, customer, hotelID, roomNo, bookingdate, noofpeople, price) values("
 					+ "\'" + id + "\'" + "," + "\'" + cID + "\'" + "," + "\'" + hotelID + "\'" + "," + "\'" + roomNo
 					+ "\'" + "," + "\'" + date + "\'" + "," + "\'" + numPpl + "\'" + "," + "\'" + price + "\'" + ")";
 			esql.executeUpdate(sql);
+			} else {
+			return;
+			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -468,11 +508,15 @@ public class DBProject {
 			// scan.nextLine();
 			System.out.println("RoomNo: ");
 			String roomNo = scan.nextLine();
+			if(isValidInt(sID) && isValidInt(hotelID) && isValidInt(roomNo)) {
 			System.out.println(
 					"Assignment ID: " + id + "\nStaff ID: " + sID + "\nHotel ID: " + hotelID + "\nRoomNo: " + roomNo);
 			String sql = "insert into assigned(asgid, staffID, hotelID, roomNo) values(" + "\'" + id + "\'" + "," + "\'"
 					+ sID + "\'" + "," + "\'" + hotelID + "\'" + "," + "\'" + roomNo + "\'" + ")";
 			esql.executeUpdate(sql);
+			} else {
+			return; 
+			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -498,12 +542,16 @@ public class DBProject {
 			String date = scan.nextLine();
 			System.out.println("Description: ");
 			String description = scan.nextLine();
+			if(isValidInt(mID) && isValidInt(rID) && isValidString(description)){
 			System.out.println("Request ID: " + id + "\nManager ID: " + mID + "\nRepair ID: " + rID + "\nRequest Date: "
 					+ date + "\nDescription: " + description);
 			String sql = "insert into request(reqid, managerID, repairID, requestdate, description) values(" + "\'" + id
 					+ "\'" + "," + "\'" + mID + "\'" + "," + "\'" + rID + "\'" + "," + "\'" + date + "\'" + "," + "\'"
 					+ description + "\'" + ")";
 			esql.executeUpdate(sql);
+			} else {
+			return;
+			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
